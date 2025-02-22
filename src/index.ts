@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import {Server} from 'socket.io';
 import { createServer } from 'http';
 import { SockerController } from '../controllers';
+import { UserRoute } from '../routes';
 const app : Express = express();
 const allowedOrigins : string  = "*";
 const corsOptions = {
@@ -24,6 +25,7 @@ const PORT = process.env.PORT || 9696 ;
 
 app.get('/' , (_ , res : Response) => { res.status(200).json({msg : 'working.....'}) });
 
+app.use(UserRoute.BASE_ROUTE ,UserRoute.router);
 const server = createServer(app);
 
 const io = new Server(server , {

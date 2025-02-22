@@ -12,9 +12,9 @@ const join_room = async (socket : Socket, data : datamap  ) => {
 
   try {
 
-    const { rowCount } = await client.query(crQueries.is_blocked, [user_id, room_id]);
+    //const { rowCount } = await client.query(crQueries.is_blocked, [user_id, room_id]);
 
-    if (rowCount === 0) {
+    if (true) {
       socket.join(room_id);
       console.log(`user joined the room`);
     }
@@ -35,10 +35,10 @@ const send_message = async (socket : Socket, data : datamap , io : any) => {
   const message = {text : msg};
   const client = await pool.connect();
   try {
-    const isPg = await axios.post(flask_toxicity_url , {text : msg , mail_address : user_email});
-    if(!isPg.data.toxic) {
+    //const isPg = await axios.post(flask_toxicity_url , {text : msg , mail_address : user_email});
+    if(true) {
       io.to(room_id).emit('message', { user_id, msg });
-      const { rows, rowCount } = await client.query(crQueries.insert_msg, [room_id, user_id, message]);
+      //const { rows, rowCount } = await client.query(crQueries.insert_msg, [room_id, user_id, message]);
     }
     else{
       let m = `message from ${user_id} is not safe for community hence deleted`;
