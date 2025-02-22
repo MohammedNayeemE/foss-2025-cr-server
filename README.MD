@@ -29,7 +29,7 @@
 
 1. clone this repo 
 ```
-git clone https://github.com/MohammedNayeemE/cr-server.git
+git clone https://github.com/MohammedNayeemE/foss-2025-cr-server.git
 cd cr-server
 ```
 2. install the depencies
@@ -45,6 +45,17 @@ New-Item .env [windows]
 paste your db credentials in the respective fields at .env
 
 ```
+- env strcuture:
+
+```
+DB_USER = 
+DB_PASSWORD = 
+DB_HOST = 
+DB_PORT = 
+DB_DATABASE = 
+
+```
+
 4. Running the server 
 ```
 npm run start
