@@ -4,7 +4,7 @@ import { datamap } from "../lib/types";
 import { Socket } from "socket.io";
 import axios from "axios";
 
-const flask_toxicity_url = 'http://34.28.179.157:5000/check'; 
+const flask_toxicity_url = 'http://localhost:5000/check'
 const join_room = async (socket : Socket, data : datamap  ) => {
   const { user_id, room_id } = data;
   console.log(user_id , room_id);
@@ -35,10 +35,10 @@ const send_message = async (socket : Socket, data : datamap , io : any) => {
   const message = {text : msg};
   const client = await pool.connect();
   try {
-    //const isPg = await axios.post(flask_toxicity_url , {text : msg , mail_address : user_email});
-    if(true) {
+    const isPg = await axios.post(flask_toxicity_url , {text : msg , mail_address : user_email});
+    if(!isPg.data.toxic) {
       io.to(room_id).emit('message', { user_id, msg });
-      //const { rows, rowCount } = await client.query(crQueries.insert_msg, [room_id, user_id, message]);
+      const { rows, rowCount } = await client.query(crQueries.insert_msg, [room_id, user_id, message]);
     }
     else{
       let m = `message from ${user_id} is not safe for community hence deleted`;
